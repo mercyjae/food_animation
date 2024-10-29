@@ -1,6 +1,6 @@
 import 'package:animations_pratice/model/food_model.dart';
 import 'package:animations_pratice/view/food_detail_view.dart';
-import 'package:animations_pratice/view/food_widget.dart';
+import 'package:animations_pratice/widgets.dart/food_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,14 +16,15 @@ class _FoodViewState extends State<FoodView> with TickerProviderStateMixin {
   final Duration _animationDuration = const Duration(milliseconds: 500);
   int currentIndex = 0;
   int? previousIndex;
+  late ScrollController _scrollController;
   late AnimationController _growAnimationController;
   late AnimationController _shrinkAnimationController;
   late AnimationController _rotationAnimationController;
-  late ScrollController _scrollController;
   late Animation<double> _growAnimation;
   late Animation<double> _shrinkAnimation;
   late Animation<double> _rotationAnimation;
   double _scrollOffset = 0.0;
+
   @override
   void initState() {
     _scrollController = ScrollController();
@@ -53,6 +54,7 @@ class _FoodViewState extends State<FoodView> with TickerProviderStateMixin {
     });
     super.initState();
   }
+  
 
   void handleIndexChange(int newIndex) {
     if (newIndex >= 0 && newIndex < foodModel.length - 1) {
@@ -61,13 +63,13 @@ class _FoodViewState extends State<FoodView> with TickerProviderStateMixin {
         currentIndex = newIndex;
       });
 
-      // _growAnimationController.reset();
-      // _growAnimationController.forward();
+      _growAnimationController.reset();
+      _growAnimationController.forward();
 
-      // if (previousIndex != newIndex) {
-      _shrinkAnimationController.reset();
-      _shrinkAnimationController.forward();
-      //}
+      if (previousIndex != newIndex) {
+        _shrinkAnimationController.reset();
+        _shrinkAnimationController.forward();
+      }
 
       double position =
           newIndex * (MediaQuery.of(context).size.width * 0.8 + 15);
@@ -79,30 +81,29 @@ class _FoodViewState extends State<FoodView> with TickerProviderStateMixin {
   @override
   void dispose() {
     super.dispose();
-    _scrollController.removeListener(() {});
+
     _scrollController.dispose();
     _growAnimationController.dispose();
     _shrinkAnimationController.dispose();
+    _scrollController.removeListener(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     double boxWidth = size.width * 0.8;
-    double maxHeight = size.height * 0.7;
-    double minHeight = size.height * 0.5;
 
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(47, 52, 62, 1),
+      backgroundColor: const Color(0xff2f343e),
       appBar: AppBar(
         toolbarHeight: 30,
         backgroundColor: const Color(0xff2f343e),
-        leading: const Padding(
-          padding: EdgeInsets.only(left: 10.0),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 10.0),
           child: CircleAvatar(
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.white.withOpacity(0.3),
             radius: 8,
-            backgroundImage: AssetImage('assets/image9.png'),
+            backgroundImage: const AssetImage('assets/image2.png'),
           ),
         ),
         centerTitle: true,
@@ -173,14 +174,7 @@ class _FoodViewState extends State<FoodView> with TickerProviderStateMixin {
                         width: 50,
                       );
                     }
-                    return FoodWidget(
-                      index: index,
-                      growAnimation: _growAnimation,
-                      shrinkAnimation: _shrinkAnimation,
-                      progressAnimation: _rotationAnimation,
-                      currentIndex: currentIndex,
-                      visiblePortion: visiblePortion,
-                      previousIndex: previousIndex,
+                    return GestureDetector(
                       onTap: () {
                         if (currentIndex == index) {
                           Navigator.push(
@@ -188,16 +182,19 @@ class _FoodViewState extends State<FoodView> with TickerProviderStateMixin {
                               MaterialPageRoute(
                                   builder: (context) => FoodDetailView(
                                       imageName: foodModel[index].image)));
-                          // Navigator.of(context).push(CupertinoPageRoute(
-                          //     builder: (context) => FoodDetailsView(
-                          //         assetName: boxContent[index].asset)));
                         } else {
                           handleIndexChange(index);
                         }
                       },
-                      minHeight: minHeight,
-                      maxHeight: maxHeight,
-                      boxWidth: boxWidth,
+                      child: FoodWidget(
+                        index: index,
+                        growAnimation: _growAnimation,
+                        shrinkAnimation: _shrinkAnimation,
+                        progressAnimation: _rotationAnimation,
+                        currentIndex: currentIndex,
+                        visiblePortion: visiblePortion,
+                        previousIndex: previousIndex,
+                      ),
                     );
                   }),
             ),

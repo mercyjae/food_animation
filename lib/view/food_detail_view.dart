@@ -29,11 +29,8 @@ class FoodDetailView extends StatelessWidget {
                         imageName),
                   )),
             ),
-            const SizedBox(
-              height: 20,
-            ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -43,31 +40,29 @@ class FoodDetailView extends StatelessWidget {
                         color: Colors.grey, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
-                    height: 10,
-                  ),
-                  const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   SizedBox(
                     height: size.height * 0.2,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ...categories.map((e) {
                           int index = categories.indexOf(e);
                           return Padding(
-                            padding: const EdgeInsets.only(right: 24.0),
+                            padding: const EdgeInsets.only(right: 0.0),
                             child: Column(
                               children: [
                                 Container(
                                   padding: const EdgeInsets.all(50),
                                   decoration: BoxDecoration(
+                                      color: Colors.white,
                                       image: DecorationImage(
                                           image: AssetImage(
                                               categories[index]["image"])),
-                                      color: categories[index]["color"],
                                       shape: BoxShape.circle),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Column(
@@ -113,13 +108,16 @@ class FoodDetailView extends StatelessWidget {
                       ],
                     ),
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Text(
                     "RECENT SEARCH",
                     style: GoogleFonts.lato(
                         color: Colors.grey, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 20,
                   ),
                   SizedBox(
                     height: size.height * 0.25,
@@ -133,7 +131,7 @@ class FoodDetailView extends StatelessWidget {
                               children: [
                                 Container(
                                   padding: const EdgeInsets.all(15),
-                                  width: size.width * 0.28,
+                                  width: size.width * 0.27,
                                   height: size.height * 0.16,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
@@ -186,7 +184,7 @@ class FoodDetailView extends StatelessWidget {
                         color: Colors.grey, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   Wrap(
                     children: [
@@ -232,8 +230,8 @@ class FoodDetailView extends StatelessWidget {
                       })
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
+                  const SizedBox(
+                    height: 30,
                   ),
                 ],
               ),

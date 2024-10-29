@@ -20,11 +20,11 @@ List<FoodModel> foodModel = [
       color: Colors.greenAccent,
       name: "Sixtus Eton"),
   FoodModel(
-      image: "assets/image3.png",
+      image: "assets/image1.png",
       color: Colors.redAccent,
       name: "Jenniffer John"),
   FoodModel(
-      image: "assets/image1.png",
+      image: "assets/image3.png",
       color: Colors.pinkAccent,
       name: "Williams Becca"),
   FoodModel(
@@ -45,10 +45,10 @@ List<Map<String, dynamic>> categories = [
     "image": "assets/image6.png"
   },
   {
-    "name": "Renegade",
+    "name": "Grape",
     "price": "40.0",
     "color": const Color(0xff717ba8),
-    "image": "assets/image7.jpg"
+    "image": "assets/image7.png"
   },
 ];
 List<Map<String, dynamic>> recentSearch = [
